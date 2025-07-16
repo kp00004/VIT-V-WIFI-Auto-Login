@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Simple Password Filler",
+  "version": "1.0",
+  "permissions": ["storage", "scripting", "activeTab", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
