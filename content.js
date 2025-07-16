@@ -1,21 +1,19 @@
 chrome.storage.local.get('creds', (result) => {
   const creds = result.creds || {};
-  const domain = window.location.hostname;
+  const domain = "http://phc.prontonetworks.com/cgi-bin/authlogin?URI=http://www.gstatic.com/generate_204";
 
   if (creds[domain]) {
     const { username, password } = creds[domain];
 
-    const userField = document.querySelector('input[type="text"], input[name="username"]');
-    const passField = document.querySelector('input[type="password"]');
+    const userInput = document.querySelector('input[name="user"]');
+    const passInput = document.querySelector('input[name="password"]');
 
-    if (userField && passField) {
-      userField.value = username;
-      passField.value = password;
+    if (userInput && passInput) {
+      userInput.value = username;
+      passInput.value = password;
 
-      const form = userField.closest('form');
-      if (form) {
-        setTimeout(() => form.submit(), 1000); // Delay for UI safety
-      }
+      const form = userInput.closest('form');
+      if (form) setTimeout(() => form.submit(), 1000);
     }
   }
 });
