@@ -26,10 +26,11 @@
     const form = userInput.closest('form');
     if (form) {
       setTimeout(() => {
-        try { form.submit(); } catch (e) { /* silent */ }
+        try {
+          form.submit();
+          chrome.runtime.sendMessage({ action: 'closeTab' });
+        } catch (e) {}
       }, 1000);
     }
-  } catch (err) {
-    /* silent */
-  }
+  } catch {}
 })();
