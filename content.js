@@ -13,7 +13,24 @@ chrome.storage.local.get('creds', (result) => {
       passInput.value = password;
 
       const form = userInput.closest('form');
-      if (form) setTimeout(() => form.submit(), 1000);
+      if (form) {
+        setTimeout(() => {
+          form.submit();
+
+          // Listen for redirect after form submit
+          const checkSuccess = () => {
+            // Delay a bit to allow navigation
+            setTimeout(() => {
+              // If the page URL no longer includes authlogin, we assume success
+              if (!window.location.href.includes("authlogin")) {
+                chrome.runtime.sendMessage({ action: "closeTab" });
+              }
+            }, 3000);
+          };
+
+          checkSuccess();
+        }, 1000);
+      }
     }
   }
 });
