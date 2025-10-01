@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <h3>Save Credentials</h3>
-    <input id="domain" placeholder="Domain (example.com)" /><br/>
-    <input id="username" placeholder="Username" /><br/>
-    <input id="password" type="password" placeholder="Password" /><br/>
-    <button id="save">Save</button>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VIT WiFi Auto Login</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>VIT WiFi Auto Login</h2>
 
-    <script src="popup.js"></script>
-  </body>
+    <form id="credForm">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter username" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter password" required />
+
+      <button type="submit">Save / Update</button>
+    </form>
+
+    <h3>Saved Users</h3>
+    <ul id="credsList"></ul>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
 </html>

@@ -1,36 +1,29 @@
-chrome.storage.local.get('creds', (result) => {
-  const creds = result.creds || {};
-  const domain = "http://phc.prontonetworks.com/cgi-bin/authlogin?URI=http://www.gstatic.com/generate_204";
+(async () => {
+  try {
+    const DOMAIN = "https://phc.prontonetworks.com/";
+    const credsResult = await chrome.storage.local.get('creds');
+    const creds = credsResult.creds || [];
 
-  if (creds[domain]) {
-    const { username, password } = creds[domain];
+    const matchedCred = creds.find(c => c.domain === DOMAIN);
 
-    const userInput = document.querySelector('input[name="user"]');
-    const passInput = document.querySelector('input[name="password"]');
+    if (matchedCred) {
+      const userInput = document.querySelector('input[name="user"], input[id="user"]');
+      const passInput = document.querySelector('input[name="password"], input[id="password"]');
 
-    if (userInput && passInput) {
-      userInput.value = username;
-      passInput.value = password;
+      if (userInput && passInput) {
+        userInput.value = matchedCred.username;
+        passInput.value = matchedCred.password;
 
-      const form = userInput.closest('form');
-      if (form) {
-        setTimeout(() => {
-          form.submit();
-
-          // Listen for redirect after form submit
-          const checkSuccess = () => {
-            // Delay a bit to allow navigation
-            setTimeout(() => {
-              // If the page URL no longer includes authlogin, we assume success
-              if (!window.location.href.includes("authlogin")) {
-                chrome.runtime.sendMessage({ action: "closeTab" });
-              }
-            }, 3000);
-          };
-
-          checkSuccess();
-        }, 1000);
+        const form = userInput.closest('form');
+        if (form) {
+          setTimeout(() => form.submit(), 1000);
+          console.log('Auto login form submitted with stored credentials');
+        }
       }
+    } else {
+      console.log('No matching credential found for this domain.');
     }
+  } catch (err) {
+    console.error('Error in content script:', err);
   }
-});
+})();

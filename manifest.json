@@ -1,16 +1,20 @@
 {
   "manifest_version": 3,
-  "name": "Proton Auto Login",
-  "version": "1.0",
-  "permissions": ["storage", "scripting", "tabs"],
+  "name": "VIT WiFi Auto Login",
+  "version": "1.1",
+  "permissions": [
+    "storage",
+    "scripting",
+    "tabs"
+  ],
   "host_permissions": [
-    "http://phc.prontonetworks.com/cgi-bin/authlogin?URI=http://www.gstatic.com/generate_204/*"
+    "https://phc.prontonetworks.com/*",
+    "http://phc.prontonetworks.com/*"
   ],
   "background": {
     "service_worker": "background.js"
   },
   "action": {
-    "default_popup": "popup.html",
-    "default_title": "Proton Auto Login"
+    "default_popup": "popup.html"
   }
 }
